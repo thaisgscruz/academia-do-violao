@@ -1,10 +1,8 @@
 # 🎸 Academia do Violão
 
-**Aprenda. Pratique. Toque de ouvido.**
-
 Aplicativo Android para estudo e prática de violão. O projeto reúne mapa tonal, campo harmônico, progressões, diagramas de acordes, pesquisa de músicas, afinador cromático, metrônomo e recursos de apoio ao estudo em uma única interface.
 
-## 📱 O que o aplicativo faz
+## O que o aplicativo faz
 
 ### Mapa Tonal
 - Exibe campos harmônicos maiores e menores.
@@ -27,7 +25,6 @@ Aplicativo Android para estudo e prática de violão. O projeto reúne mapa tona
 - Afinador cromático utilizando o microfone do dispositivo.
 - Identificação da nota e frequência captada.
 - Exibição de diferença em cents.
-- Considera a nota afinada entre **-5 e +5 cents**.
 - Apresenta acidentes sustenidos por equivalentes em bemol quando aplicável.
 
 ### Metrônomo
@@ -41,28 +38,11 @@ Aplicativo Android para estudo e prática de violão. O projeto reúne mapa tona
 - Histórico de uso.
 - Repertório e favoritos separados por perfil.
 
-## 🛠 Tecnologias
+## Tecnologias utilizadas
 
-- **Kotlin**
-- **Android Studio**
-- **Android SDK 35**
-- **JDK 17**
-- **Gradle / Android Gradle Plugin 8.7.3**
-- **WebView + HTML/CSS/JavaScript** para a interface do aplicativo
-- APIs e páginas externas utilizadas para consulta de informações musicais
+Kotlin, Android Studio, SDK 35, WebView + HTML/CSS/JavaScript para interface, APIs e páginas externas para consultas.
 
-## ✅ Requisitos
-
-Antes de instalar o projeto, tenha:
-
-- Android Studio atualizado.
-- JDK 17.
-- Android SDK 35 instalado.
-- Conexão com a internet para as funções de pesquisa.
-- Dispositivo ou emulador Android com **API 23 ou superior**.
-- Permissão de microfone para afinador e pesquisa por voz.
-
-## 🚀 Como instalar e executar
+## Como instalar e executar
 
 ### 1. Clone o repositório
 
@@ -83,24 +63,15 @@ cd academia-do-violao
 3. Selecione a pasta do projeto.
 4. Aguarde a sincronização do Gradle.
 
-### 3. Configure o ambiente
-
-Confirme no Android Studio:
-
-- **JDK:** 17
-- **Compile SDK:** 35
-- **Target SDK:** 35
-- **Min SDK:** 23
-
-### 4. Execute o aplicativo
+### 3. Execute o aplicativo
 
 1. Conecte um celular Android com depuração USB habilitada ou crie um emulador.
 2. Selecione o dispositivo no Android Studio.
-3. Clique em **Run ▶**.
+3. Clique em **Run**.
 
-O projeto foi testado com configuração equivalente a um **Pixel 6 / Android API 35**.
+O projeto foi testado com configuração equivalente a um *Pixel 6 / Android API 35*.
 
-## 📦 Gerar APK
+## Gerar APK
 
 Pelo Android Studio:
 
@@ -114,14 +85,14 @@ app/build/outputs/apk/debug/app-debug.apk
 
 > O arquivo `build-apk.sh` usa `./gradlew assembleDebug`. Caso o Gradle Wrapper ainda não esteja presente no projeto, gere-o pelo Android Studio/Gradle antes de utilizar esse script.
 
-## 🔐 Permissões utilizadas
+## Permissões utilizadas
 
 O aplicativo solicita:
 
 - `INTERNET` — consultas e integração com serviços externos.
 - `RECORD_AUDIO` — afinador e pesquisa por voz.
 
-## 📚 Fontes externas e direitos autorais
+## Fontes externas e direitos autorais
 
 A tonalidade é consultada no **Cifra Club**.
 
@@ -129,11 +100,7 @@ As letras não são copiadas nem armazenadas pelo aplicativo. Quando disponívei
 
 O aplicativo também utiliza informações públicas de músicas disponibilizadas pelo **Deezer**.
 
-## 📌 Versão
-
-**1.7.0**
-
-Principais recursos desta versão:
+## Principais recursos desta versão
 
 - Metrônomo integrado ao BPM da música.
 - Sincronização automática da tonalidade da música com o Mapa Tonal.
@@ -141,8 +108,7 @@ Principais recursos desta versão:
 - Afinador com tolerância de ±5 cents.
 - Mapa Tonal mais compacto.
 - Diagramas interativos de acordes.
-- Novo slogan: **“Aprenda. Pratique. Toque de ouvido.”**
 
-## 👩‍💻 Projeto
+## Projeto
 
 Desenvolvido como aplicativo Android para estudo musical e prática de violão.
