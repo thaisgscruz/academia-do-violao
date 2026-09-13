@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Academia do Violão</title>
+<style>
+:root{color-scheme:dark;--android-top-inset:0px;--android-bottom-inset:0px;--bg:#0d1117;--panel:#131a23;--panel2:#171d25;--border:#2d3743;--text:#f4f7f9;--muted:#aeb8c2;--accent:#ef343a;--blue:#42aaff;--green:#45cc72;--orange:#ffb21d}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+body.light{color-scheme:light;--bg:#f4f6f8;--panel:#fff;--panel2:#f8fafb;--border:#d7dee5;--text:#15212b;--muted:#60707c}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:880px;margin:0 auto;padding:calc(10px + var(--android-top-inset)) 13px calc(76px + var(--android-bottom-inset))}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 1px 15px}
+.brand{display:flex;align-items:center;gap:9px;min-width:0;flex:1}.logo{font-size:26px;flex:0 0 auto}.brandText{min-width:0}.title{font-size:clamp(19px,5vw,26px);font-weight:900;line-height:1.08}.subtitle{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.3}
+.topActions{display:flex;align-items:center;gap:7px}.theme,.avatar{border:1px solid var(--border);background:var(--panel2);color:var(--text)}.theme{height:42px;border-radius:999px;padding:0 11px;font-weight:850}.avatar{width:42px;height:42px;border-radius:50%;font-size:19px;border-color:var(--accent)}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:15px;margin:10px 0}
+h2,h3{margin:0 0 11px}.muted{color:var(--muted);line-height:1.5}.tiny{font-size:12px;color:var(--muted);margin-top:4px}
+.search{display:grid;grid-template-columns:minmax(0,1fr) 46px auto;gap:7px}.textInput,.selectInput{width:100%;min-width:0;min-height:46px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);padding:0 13px;font-size:16px}.primary,.secondary{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:0 15px}.primary{background:var(--accent);color:#fff}.secondary{background:#46515d;color:#fff}.voiceSearch{width:46px;height:46px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);font-size:21px}.voiceSearch.listening{border-color:var(--orange);color:var(--orange);animation:voicePulse .8s infinite alternate}.search .primary{width:auto;padding:0 12px;font-size:13px}@keyframes voicePulse{to{box-shadow:0 0 12px rgba(255,138,24,.65)}}
+.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--panel2);line-height:1.45}.hidden{display:none!important}
+.result{width:100%;display:block;text-align:left;min-height:66px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);padding:11px 13px;margin:7px 0}.result.selected{border-color:var(--accent)}.artist{font-size:13px;color:var(--muted);margin-top:4px}
+.badges{display:flex;gap:7px;flex-wrap:wrap}.badge{padding:7px 10px;border:1px solid var(--border);border-radius:999px;background:var(--panel2)}.accent{color:var(--accent)}.blue{color:var(--blue)}.green{color:var(--green)}.songHeading{display:flex;align-items:flex-start;justify-content:space-between;gap:9px;margin-bottom:10px}.songHeadingCopy{min-width:0;flex:1}.songHeadingCopy h2{overflow-wrap:anywhere}.songArtist{margin-bottom:0}.songMetroBtn{display:grid;grid-template-columns:28px auto;grid-template-rows:auto auto;align-items:center;column-gap:4px;min-width:64px;min-height:53px;padding:6px 8px;border:1px solid var(--border);border-radius:13px;background:var(--panel2);color:var(--text)}.songMetroIcon{grid-row:1/3;width:25px;height:25px;color:var(--accent)}.songMetroBpm{font-size:12px;font-weight:900;line-height:1}.songMetroState{font-size:11px;color:var(--muted)}.songMetroBtn.active{border-color:var(--accent)}.songMetroBtn.beating .songMetroIcon{color:var(--orange);filter:drop-shadow(0 0 5px var(--orange))}.relativeHint{margin:10px 2px 0;font-size:13px;line-height:1.4;color:var(--muted)}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin-top:10px}.tab{flex:0 0 auto;min-height:42px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--text);font-weight:850;padding:0 10px}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.mapGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.mapBox{background:var(--panel2);border:1px solid var(--border);border-radius:13px;padding:13px}.mapBox strong{display:block;margin-bottom:8px}.chords{font-size:18px;font-weight:900;line-height:1.75;word-spacing:7px}
+.sourceRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.sourceRow button{flex:1;min-width:150px}
+.favoriteAction{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;min-height:42px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);padding:0 13px;font-weight:850}.favoriteAction.active{border-color:var(--accent);color:var(--accent)}.repertoireHeading{display:flex;align-items:center;justify-content:space-between;gap:8px}.countBadge{min-width:28px;text-align:center;padding:4px 8px;border:1px solid var(--border);border-radius:999px;background:var(--panel2);font-size:12px}.savedItem{display:flex;align-items:center;justify-content:space-between;gap:10px}.savedContent{min-width:0;flex:1}.favoriteToggle{flex:0 0 auto;width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:var(--panel);color:var(--muted);font-size:18px}.favoriteToggle.active{border-color:var(--accent);color:var(--accent)}
+.actionRow{display:flex;gap:8px}.actionRow button{flex:1}
+.profileInfo{display:grid;gap:9px}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--bg);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);padding:5px 6px calc(5px + var(--android-bottom-inset))}.bottom button{min-height:58px;border:0;background:transparent;color:var(--text);font-size:11px;font-weight:850}.bottom button.active{color:var(--accent)}.navIcon{display:block;font-size:21px;margin-bottom:2px}
+.studyHero{background:linear-gradient(140deg,var(--panel),var(--panel2));border-left:3px solid var(--accent)}.studyLayer{display:flex;align-items:center;gap:9px;margin-bottom:12px}.layerNumber{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:white;font-weight:850}.studyProgression{padding:11px 12px;margin-top:8px;background:var(--panel2);border:1px solid var(--border);border-radius:11px}.studyProgression strong{display:block;margin-bottom:5px}.studyTripod{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.tripodItem{text-align:center;padding:10px 3px;border:1px solid var(--border);border-radius:11px;background:var(--panel2)}.tripodItem b{display:block;color:var(--accent);font-size:21px}.tunerReadout{overflow:hidden;border:1px solid #4b5563;border-radius:18px;background:#222b35;margin-top:13px;transition:border-color .2s}.tunerTopLine{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px 0;color:#ffc078;font-weight:800}.tunerDial{position:relative;width:100%;height:193px;overflow:hidden}.dialScale{position:absolute;left:5%;right:5%;top:13px;height:295px;border-radius:50%;background:repeating-conic-gradient(from 225deg at 50% 50%,#6f8194 0deg 1deg,transparent 1deg 4deg);clip-path:polygon(0 0,100% 0,100% 55%,0 55%)}.dialMask{position:absolute;left:11%;right:11%;top:37px;height:248px;border-radius:50%;background:#222b35}.tunerReadout.inTune .dialMask{background:#2d333c}.dialCenterZone{position:absolute;left:42%;top:30px;width:16%;height:150px;background:rgba(255,138,24,.13);clip-path:polygon(36% 0,64% 0,100% 100%,0 100%)}.dialLabels{position:absolute;inset:0;font-size:11px;color:#94a3b8}.dialLabels span{position:absolute}.neighborNote{position:absolute;bottom:8px;color:#ffb463;font-weight:850;font-size:13px}.neighborNote.left{left:12px}.neighborNote.right{right:12px}.dialNeedle{position:absolute;left:50%;bottom:0;width:4px;height:142px;background:#ff7a00;border-radius:5px;transform-origin:50% 100%;transform:translateX(-50%) rotate(0deg);transition:transform .14s ease-out;box-shadow:0 0 7px rgba(255,122,0,.65)}.dialPivot{position:absolute;left:50%;bottom:-10px;width:25px;height:25px;background:#ff7a00;border:6px solid #222b35;border-radius:50%;transform:translateX(-50%)}.tunedCheck{display:none;position:absolute;left:50%;bottom:40px;width:42px;height:42px;place-items:center;border-radius:50%;background:#ff8a18;color:#1c232c;font-size:27px;font-weight:950;transform:translateX(-50%)}.tunerReadout.inTune .tunedCheck{display:grid}.centsBox{padding:5px 10px;border:1px solid #ff9a3c;border-radius:8px;color:#ffc078;font-size:20px}.noteDisplay{min-height:150px;display:grid;place-items:center;background:linear-gradient(145deg,#9b3f00,#e66a00);padding:9px;transition:background .2s}.noteDisplay.inTune{background:linear-gradient(145deg,#ff7a00,#ffad33)}.tunerNote{font-size:76px;font-weight:500;line-height:1;text-align:center;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.25)}.tunerFreq,.tunerCents{text-align:center;font-weight:850}.tunerStatus{padding:10px 12px;text-align:center;background:#1b222b}.metroControls{display:grid;grid-template-columns:46px 1fr 46px;align-items:center;gap:8px}.metroBpm{text-align:center;font-size:34px;font-weight:900}.metroButton{height:46px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);font-size:22px}.metroBeat{width:14px;height:14px;margin:11px auto;border-radius:50%;background:var(--border)}.metroBeat.active{background:var(--orange);box-shadow:0 0 16px var(--orange)}
+.chordButton{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:4px 8px;margin:2px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);color:var(--text);font-weight:850;word-spacing:normal}.chordButton:hover,.chordButton:focus-visible{border-color:var(--accent);color:var(--accent)}.chordInline{min-height:28px;padding:2px 7px;font-size:inherit}.chordCatalog{display:grid;grid-template-columns:repeat(auto-fit,minmax(136px,1fr));gap:10px}.chordCatalogCard{width:100%;padding:9px;border:1px solid var(--border);border-radius:13px;background:var(--panel2);color:var(--text);text-align:center}.chordCatalogCard:hover,.chordCatalogCard:focus-visible{border-color:var(--accent)}.chordCatalogCard strong{display:block;font-size:18px}.chordDiagramSvg{width:100%;max-width:170px;height:auto;display:block;margin:5px auto}.chordModal{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.76)}.chordModalPanel{width:min(380px,100%);max-height:85vh;overflow:auto;padding:17px;border:1px solid var(--border);border-radius:18px;background:var(--panel)}.chordModalHeader{display:flex;align-items:center;justify-content:space-between;gap:10px}.chordModalClose{width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:var(--panel2);color:var(--text);font-size:24px}.chordVariationTabs{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.chordVariationButton{padding:8px 10px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);color:var(--text);font-size:13px}.chordVariationButton.active{border-color:var(--accent);color:var(--accent)}.chordDiagramLarge .chordDiagramSvg{max-width:238px}.chordLegend{text-align:center;line-height:1.6}
+@media(max-width:560px){.app{padding:calc(8px + var(--android-top-inset)) 11px calc(74px + var(--android-bottom-inset))}.title{font-size:19px}.subtitle{font-size:10px}.logo{font-size:23px}.theme{height:40px;padding:0 9px}.avatar{width:40px;height:40px}.card{padding:13px}.mapGrid{grid-template-columns:1fr}.actionRow{flex-direction:column}.sourceRow button{width:100%}.search{grid-template-columns:minmax(0,1fr) 44px auto}.search .primary{min-width:72px;padding:0 9px}.tunerNote{font-size:68px}.chordCatalog{grid-template-columns:repeat(2,minmax(0,1fr))}.chordButton{font-size:15px}.songMetroBtn{min-width:60px;padding:5px 7px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top">
+  <div class="brand">
+    <div class="logo">🎸</div>
+    <div class="brandText">
+      <div class="title">Academia do Violão</div>
+      <div class="subtitle">Aprenda. Pratique. Toque de ouvido.</div>
+    </div>
+  </div>
+  <div class="topActions">
+    <button id="themeToggle" class="theme" type="button">☾ Escuro</button>
+    <button id="profileBtn" class="avatar" type="button" aria-label="Perfil">👤</button>
+  </div>
+</header>
+
+<section id="studyPage">
+  <div class="card studyHero">
+    <h2>Mapa Tonal</h2>
+    <select id="studyKey" class="selectInput" aria-label="Tonalidade para estudo"></select>
+  </div>
+  <div class="card">
+    <div class="studyLayer"><span class="layerNumber">1</span><h3>Campo harmônico</h3></div>
+    <div id="studyField" class="chords"></div>
+    <p id="studyFieldExplanation" class="relativeHint"></p>
+  </div>
+  <div class="card">
+    <div class="studyLayer"><span class="layerNumber">2</span><h3>Progressões musicais</h3></div>
+    <div id="studyProgressions"></div>
+  </div>
+  <div class="card">
+    <div class="studyLayer"><span class="layerNumber">3</span><h3>Variações e conduções</h3></div>
+    <div id="studyVariations"></div>
+  </div>
+  <div class="card">
+    <div class="studyLayer"><span class="layerNumber">4</span><h3>Montagem dos acordes</h3></div>
+    <p class="muted">Toque em qualquer acorde para ver a posição dos dedos e outras formas no braço do violão.</p>
+    <div id="chordCatalog" class="chordCatalog"></div>
+  </div>
+</section>
+
+<section id="mainPage" class="hidden">
+  <div class="card">
+    <h2>Pesquisar música</h2>
+    <div class="search">
+      <input id="query" class="textInput" placeholder="Nome da música ou artista">
+      <button id="voiceSearchBtn" class="voiceSearch" type="button" aria-label="Pesquisar por voz" title="Pesquisar por voz">🎙</button>
+      <button id="searchBtn" class="primary" type="button">Pesquisar</button>
+    </div>
+    <div id="searchStatus" class="status hidden"></div>
+  </div>
+
+  <div id="resultsCard" class="card">
+    <h3>Sugestões e resultados</h3>
+    <div id="results"><div class="muted">Pesquise uma música para começar.</div></div>
+  </div>
+
+  <div id="songCard" class="card hidden">
+    <div class="songHeading">
+      <div class="songHeadingCopy"><h2 id="songTitle"></h2><div id="songArtist" class="muted songArtist"></div></div>
+      <button id="songMetroBtn" class="songMetroBtn hidden" type="button" aria-label="Tocar metrônomo no andamento da música" aria-pressed="false">
+        <svg class="songMetroIcon" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4h8l7 24H5L12 4Z"/><path d="m16 23 8-14"/><path d="M10 23h12"/><circle cx="16" cy="23" r="2" fill="currentColor"/></svg>
+        <span id="songMetroBpm" class="songMetroBpm">—</span><span id="songMetroState" class="songMetroState">▶</span>
+      </button>
+    </div>
+
+    <div class="badges">
+      <span class="badge">Tonalidade: <b id="songKey" class="accent">procurando cifra...</b></span>
+      <span class="badge">Andamento: <b id="songTempo" class="blue">—</b></span>
+    </div>
+    <button id="favoriteBtn" class="favoriteAction" type="button" aria-pressed="false">♡ Adicionar aos favoritos</button>
+
+    <p id="keySource" class="tiny" style="margin-top:9px"></p>
+
+    <div id="keyFallback" class="status hidden">
+      <div id="keyFallbackMessage"></div>
+      <div class="sourceRow">
+        <button id="googleCifraBtn" class="secondary" type="button">Pesquisar cifra no Google</button>
+        <button id="directCifraBtn" class="secondary hidden" type="button">Abrir tentativa no Cifra Club</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="map" type="button">◎ Mapa Tonal</button>
+      <button class="tab" data-tab="lyrics" type="button">▤ Letra</button>
+      <button class="tab" data-tab="details" type="button">▦ Detalhes</button>
+    </div>
+
+    <div id="mapTab">
+      <div class="mapGrid">
+        <div class="mapBox">
+          <strong>Tonalidade</strong>
+          <select id="manualKey" class="selectInput"></select>
+          <div class="tiny">Você pode corrigir manualmente caso a cifra consultada esteja transposta.</div>
+        </div>
+
+        <div class="mapBox">
+          <strong>Funções principais</strong>
+          <div id="functions"></div>
+        </div>
+      </div>
+
+      <div class="mapBox" style="margin-top:10px">
+        <strong>Campo harmônico</strong>
+        <div id="harmonicField" class="chords"></div>
+      </div>
+
+      <div class="mapBox" style="margin-top:10px">
+        <strong>Como aplicar</strong>
+        <div id="mapExplanation" class="muted"></div>
+      </div>
+    </div>
+
+    <div id="lyricsTab" class="hidden">
+      <p class="muted">A letra é exibida pela página original do Letras.mus.br dentro do aplicativo, respeitando os direitos autorais.</p>
+      <div id="lyricsStatus" class="status">Selecione uma música para localizar a letra.</div>
+      <div class="sourceRow">
+        <button id="openLyricsBtn" class="primary hidden" type="button">Exibir letra da música</button>
+        <button id="searchLyricsBtn" class="secondary hidden" type="button">Pesquisar letra no Google</button>
+        <button id="openCifraBtn" class="secondary hidden" type="button">Abrir cifra no Cifra Club</button>
+      </div>
+    </div>
+
+    <div id="detailsTab" class="hidden">
+      <p id="detailText" class="muted">Selecione um resultado para carregar os detalhes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tunerPage" class="hidden">
+  <div class="card">
+    <h2>Afinador</h2>
+    <p class="muted">O microfone começa automaticamente. Toque uma corda de cada vez.</p>
+    <div id="tunerReadout" class="tunerReadout">
+      <div class="tunerTopLine"><span id="tunerPitchLabel">A4 = 440 Hz</span><span id="tunerCentsBox" class="centsBox">0¢</span></div>
+      <div class="tunerDial" aria-label="Indicador semicircular de afinação">
+        <div class="dialScale"></div><div class="dialMask"></div><div class="dialCenterZone"></div>
+        <div class="dialLabels"><span style="left:4%;bottom:36px">−50</span><span style="left:17%;top:80px">−30</span><span style="left:31%;top:35px">−10</span><span style="left:49%;top:17px;color:#ff9a3c">0</span><span style="right:30%;top:35px">+10</span><span style="right:16%;top:80px">+30</span><span style="right:3%;bottom:36px">+50</span></div>
+        <span id="lowerNote" class="neighborNote left">—</span><span id="upperNote" class="neighborNote right">—</span>
+        <div id="needle" class="dialNeedle"></div><div class="dialPivot"></div><div class="tunedCheck">✓</div>
+      </div>
+      <div id="noteDisplay" class="noteDisplay"><div id="tunerNote" class="tunerNote">—</div></div>
+      <div class="tunerStatus"><div id="tunerFreq" class="tunerFreq">0.0 Hz</div><div id="tunerCents" class="tunerCents" style="margin-top:5px">Preparando microfone...</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Metrônomo</h2>
+    <div class="metroControls"><button id="metroMinus" class="metroButton" type="button" aria-label="Diminuir BPM">−</button><div><div id="metroBpm" class="metroBpm">80</div><div class="tiny" style="text-align:center">batidas por minuto</div></div><button id="metroPlus" class="metroButton" type="button" aria-label="Aumentar BPM">+</button></div>
+    <input id="metroRange" type="range" min="40" max="220" value="80" style="width:100%;margin-top:12px;accent-color:var(--accent)">
+    <div id="metroBeat" class="metroBeat"></div>
+    <div class="actionRow"><button id="metroPlay" class="primary" type="button">▶ Play</button><button id="metroPause" class="secondary" type="button">⏸ Pause</button></div>
+  </div>
+</section>
+
+<section id="profilePage" class="hidden">
+  <div class="card">
+    <h2>Perfil por e-mail</h2>
+    <p class="muted">O perfil é local ao aparelho e separa seu repertório por e-mail, sem login do Gmail.</p>
+    <div class="profileInfo">
+      <input id="emailInput" class="textInput" type="email" autocomplete="email" placeholder="seuemail@exemplo.com">
+      <button id="emailLogin" class="primary" type="button">Usar este e-mail</button>
+      <button id="logoutBtn" class="secondary hidden" type="button">Sair do perfil</button>
+      <div id="loginStatus" class="status hidden"></div>
+    </div>
+  </div>
+  <div id="repertoirePage">
+  <div class="card">
+    <h2>Repertório</h2>
+    <div id="profileLabel" class="tiny" style="margin-bottom:10px"></div>
+    <p class="muted">Seu histórico e seus favoritos ficam salvos neste aparelho, separados por perfil.</p>
+  </div>
+  <div class="card">
+    <div class="repertoireHeading"><h3>♥ Favoritos</h3><span id="favoriteCount" class="countBadge">0</span></div>
+    <div id="favoriteSongs" class="muted">Você ainda não adicionou músicas aos favoritos.</div>
+  </div>
+  <div class="card">
+    <div class="repertoireHeading"><h3>Histórico de músicas</h3><span id="historyCount" class="countBadge">0</span></div>
+    <div id="savedSongs" class="muted">Nenhuma música salva ainda.</div>
+  </div>
+  </div>
+</section>
+</main>
+
+<nav class="bottom" aria-label="Navegação principal">
+  <button class="active" data-page="study" type="button"><span class="navIcon">◎</span>Mapa Tonal</button>
+  <button data-page="main" type="button"><span class="navIcon">♫</span>Músicas</button>
+  <button data-page="tuner" type="button"><span class="navIcon">🎙</span>Afinador</button>
+  <button data-page="profile" type="button"><span class="navIcon">♙</span>Perfil</button>
+</nav>
+
+<div id="chordModal" class="chordModal hidden" role="dialog" aria-modal="true" aria-labelledby="chordModalTitle">
+  <div class="chordModalPanel">
+    <div class="chordModalHeader"><h2 id="chordModalTitle">Acorde</h2><button id="chordModalClose" class="chordModalClose" type="button" aria-label="Fechar montagem">×</button></div>
+    <div id="chordVariationTabs" class="chordVariationTabs"></div>
+    <div id="chordDiagram" class="chordDiagramLarge"></div>
+    <p id="chordPositionHint" class="muted chordLegend"></p>
+    <p class="tiny chordLegend">● posição do dedo · ○ corda solta · × corda não tocada</p>
+  </div>
+</div>
+
+<script>
+const body=document.body;
+const $=id=>document.getElementById(id);
+const pages={study:$('studyPage'),main:$('mainPage'),tuner:$('tunerPage'),profile:$('profilePage')};
+let selectedSong=null;
+let selectedCifraUrl='';
+let googleCifraUrl='';
+let directCifraUrl='';
+let selectedLyricsUrl='';
+let googleLyricsUrl='';
+let searchDebounce=null;
+let metronomeTimer=null;
+let metronomeAudio=null;
+let smoothedCents=0;
+const MIN_SUGGESTION_LENGTH=2;
+const SUGGESTION_DELAY_MS=420;
+
+const SHARP=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const FLAT=['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
+const PC={'C':0,'C#':1,'Db':1,'D':2,'D#':3,'Eb':3,'E':4,'F':5,'F#':6,'Gb':6,'G':7,'G#':8,'Ab':8,'A':9,'A#':10,'Bb':10,'B':11};
+const MAJOR_KEY_ROOTS=['C','Db','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
+const MINOR_KEY_ROOTS=['C','C#','D','Eb','E','F','F#','G','G#','A','Bb','B'];
+
+function showPage(name){
+  Object.entries(pages).forEach(([k,v])=>v.classList.toggle('hidden',k!==name));
+  document.querySelectorAll('.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+  if(name!=='tuner'){
+    if(window.Android?.stopTuner)Android.stopTuner();
+    stopMetronome(false);
+  }
+  if(name==='tuner' && metronomeTimer===null && window.Android?.prepareTuner) Android.prepareTuner();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.bottom button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+$('profileBtn').addEventListener('click',()=>showPage('profile'));
+
+function setTheme(light){
+  body.classList.toggle('light',light);
+  $('themeToggle').textContent=light?'☀ Claro':'☾ Escuro';
+  localStorage.setItem('theme',light?'light':'dark');
+  if(window.Android?.setLightTheme) Android.setLightTheme(light);
+}
+$('themeToggle').addEventListener('click',()=>setTheme(!body.classList.contains('light')));
+setTheme(localStorage.getItem('theme')==='light');
+
+$('searchBtn').addEventListener('click',searchSongs);
+$('query').addEventListener('keydown',e=>{if(e.key==='Enter')searchSongs()});
+$('voiceSearchBtn').addEventListener('click',()=>{
+  $('voiceSearchBtn').classList.add('listening');
+  showStatus('Ouvindo... diga o nome da música ou artista.');
+  if(window.Android?.startVoiceSearch)Android.startVoiceSearch();
+  else window.onVoiceSearchError('Pesquisa por voz indisponível.');
+});
+window.onVoiceSearchResult=text=>{
+  $('voiceSearchBtn').classList.remove('listening');
+  $('query').value=String(text||'').trim();
+  if($('query').value)searchSongs();
+};
+window.onVoiceSearchError=message=>{
+  $('voiceSearchBtn').classList.remove('listening');
+  showStatus(message||'Não foi possível reconhecer a pesquisa.');
+};
+$('query').addEventListener('input',()=>{
+  clearTimeout(searchDebounce);
+  const query=$('query').value.trim();
+  $('resultsCard').classList.remove('hidden');
+  if(selectedSong)$('songCard').classList.add('hidden');
+
+  if(query.length<MIN_SUGGESTION_LENGTH){
+    $('searchStatus').classList.add('hidden');
+    $('results').innerHTML=`<div class="muted">${query?'Digite pelo menos duas letras para ver sugestões.':'Pesquise uma música para começar.'}</div>`;
+    return;
+  }
+
+  searchDebounce=setTimeout(()=>searchSongs(),SUGGESTION_DELAY_MS);
+});
+
+function searchSongs(){
+  clearTimeout(searchDebounce);
+  const q=$('query').value.trim();
+  if(!q){showStatus('Digite o nome da música ou artista.');return}
+  if(selectedSong)$('songCard').classList.add('hidden');
+  $('resultsCard').classList.remove('hidden');
+  showStatus('Pesquisando músicas...');
+  $('results').innerHTML='<div class="muted">Carregando...</div>';
+  if(window.Android?.searchSongs) Android.searchSongs(q);
+  else showStatus('Integração Android indisponível.');
+}
+
+function showStatus(text){
+  $('searchStatus').classList.remove('hidden');
+  $('searchStatus').textContent=text;
+}
+
+window.onSongSearchResults=json=>{
+  let payload={};
+  try{payload=JSON.parse(json)}catch{}
+  const arr=Array.isArray(payload)?payload:(payload.results||[]);
+  if(payload.query && payload.query.trim()!==$('query').value.trim())return;
+  if($('resultsCard').classList.contains('hidden'))return;
+  $('searchStatus').classList.add('hidden');
+  $('results').innerHTML='';
+  if(!arr.length){$('results').innerHTML='<div class="muted">Nenhum resultado encontrado.</div>';return}
+
+  arr.forEach(item=>{
+    const button=document.createElement('button');
+    button.className='result';
+    button.type='button';
+    button.innerHTML=`<strong>${escapeHtml(item.title)}</strong><div class="artist">${escapeHtml(item.artist)}</div><div class="tiny">${escapeHtml(item.album||'')}</div>`;
+    button.addEventListener('click',()=>selectSong(item,button));
+    $('results').appendChild(button);
+  });
+};
+
+window.onSongSearchError=payload=>{
+  let error={message:payload};
+  try{error=JSON.parse(payload)}catch{}
+  if(error.query && error.query.trim()!==$('query').value.trim())return;
+  showStatus('Falha na pesquisa: '+(error.message||'Falha de conexão'));
+  $('results').innerHTML='<div class="muted">Não foi possível carregar os resultados.</div>';
+};
+
+function selectSong(item,button){
+  if(metronomeTimer!==null)stopMetronome(false);
+  selectedSong=item;
+  selectedCifraUrl='';
+  googleCifraUrl='';
+  directCifraUrl='';
+  selectedLyricsUrl='';
+  googleLyricsUrl='';
+
+  document.querySelectorAll('.result').forEach(x=>x.classList.remove('selected'));
+  button.classList.add('selected');
+  $('resultsCard').classList.add('hidden');
+  $('results').innerHTML='';
+  $('searchStatus').classList.add('hidden');
+  $('query').value='';
+
+  $('songCard').classList.remove('hidden');
+  $('songTitle').textContent=item.title;
+  $('songArtist').textContent=item.artist;
+  $('songKey').textContent='procurando cifra...';
+  $('songTempo').textContent='carregando...';
+  $('songMetroBtn').classList.add('hidden');
+  $('songMetroBtn').dataset.bpm='';
+  $('songMetroBpm').textContent='—';
+  $('keySource').textContent='Buscando o tom na cifra...';
+  $('keyFallback').classList.add('hidden');
+  $('openCifraBtn').classList.add('hidden');
+  $('openLyricsBtn').classList.add('hidden');
+  $('searchLyricsBtn').classList.add('hidden');
+  $('lyricsStatus').textContent='Procurando a letra no Letras.mus.br...';
+
+  if(window.Android?.loadTrack) Android.loadTrack(String(item.id));
+  if(window.Android?.lookupSongKey) Android.lookupSongKey(item.title,item.artist);
+  if(window.Android?.lookupLyrics) Android.lookupLyrics(item.title,item.artist);
+
+  saveSong(item);
+  updateFavoriteButton();
+  $('songCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+window.onTrackDetail=json=>{
+  let d={};
+  try{d=JSON.parse(json)}catch{}
+  if(!selectedSong || String(d.id)!==String(selectedSong.id))return;
+  const bpm=Number(d.bpm||0);
+  $('songTempo').textContent=bpm>0?`${Math.round(bpm)} BPM · ${tempoLabel(bpm)}`:'não informado';
+  $('songMetroBtn').classList.toggle('hidden',bpm<=0);
+  $('songMetroBtn').dataset.bpm=bpm>0?String(Math.round(bpm)):'';
+  $('songMetroBpm').textContent=bpm>0?String(Math.round(bpm)):'—';
+  $('songMetroBtn').setAttribute('aria-label',bpm>0?`Tocar metrônomo em ${Math.round(bpm)} batidas por minuto`:'Metrônomo indisponível');
+  $('detailText').textContent=`Álbum: ${d.album||'—'} · Duração: ${formatDuration(d.duration||0)} · BPM: ${bpm>0?Math.round(bpm):'não informado'}. O compasso e o padrão rítmico não são inferidos quando a fonte não os fornece.`;
+  updateSavedSongDetails(d);
+};
+
+window.onTrackDetailError=()=>{
+  $('songTempo').textContent='indisponível';
+  $('songMetroBtn').classList.add('hidden');
+};
+
+window.onKeyLookupResult=json=>{
+  let data={};
+  try{data=JSON.parse(json)}catch{}
+  if(!selectedSong || (data.title && data.title!==selectedSong.title) || (data.artist && data.artist!==selectedSong.artist))return;
+  googleCifraUrl=data.googleUrl||'';
+  directCifraUrl=data.cifraUrl||'';
+
+  if(data.found && data.key){
+    selectedCifraUrl=data.url||'';
+    $('songKey').textContent=prettyKey(data.key);
+    $('keySource').textContent=`Tom confirmado em ${data.source||'cifra'}: ${prettyKey(data.key)}.`;
+    $('keyFallback').classList.add('hidden');
+
+    if(selectedCifraUrl){
+      $('openCifraBtn').classList.remove('hidden');
+    }
+
+    setMapFromKey(data.key);
+    syncStudyMap(data.key);
+    updateSavedSongKey(data.key,selectedCifraUrl);
+  }else{
+    $('songKey').textContent='não confirmado';
+    $('keySource').textContent='Não localizamos o tom automaticamente.';
+    $('keyFallback').classList.remove('hidden');
+    $('keyFallbackMessage').textContent=data.message||'Confirme o tom pela cifra.';
+    $('googleCifraBtn').classList.toggle('hidden',!googleCifraUrl);
+    $('directCifraBtn').classList.toggle('hidden',!directCifraUrl);
+  }
+};
+
+$('googleCifraBtn').addEventListener('click',()=>{if(googleCifraUrl&&window.Android?.openExternal)Android.openExternal(googleCifraUrl)});
+$('directCifraBtn').addEventListener('click',()=>{if(directCifraUrl&&window.Android?.openExternal)Android.openExternal(directCifraUrl)});
+$('openCifraBtn').addEventListener('click',()=>{if(selectedCifraUrl&&window.Android?.openExternal)Android.openExternal(selectedCifraUrl)});
+$('openLyricsBtn').addEventListener('click',()=>{
+  if(!selectedLyricsUrl)return;
+  if(window.Android?.openLyricsPage)Android.openLyricsPage(selectedLyricsUrl);
+  else if(window.Android?.openExternal)Android.openExternal(selectedLyricsUrl);
+});
+$('searchLyricsBtn').addEventListener('click',()=>{if(googleLyricsUrl&&window.Android?.openExternal)Android.openExternal(googleLyricsUrl)});
+
+window.onLyricsLookupResult=json=>{
+  let result={};
+  try{result=JSON.parse(json)}catch{}
+  if(!selectedSong || result.title!==selectedSong.title || result.artist!==selectedSong.artist)return;
+  googleLyricsUrl=result.googleUrl||'';
+  selectedLyricsUrl=result.found?(result.url||''):'';
+  $('lyricsStatus').textContent=result.found?'Letra localizada. Toque abaixo para visualizar dentro do aplicativo.':'Não encontramos automaticamente a letra. Use a pesquisa direcionada.';
+  $('openLyricsBtn').classList.toggle('hidden',!selectedLyricsUrl);
+  $('searchLyricsBtn').classList.toggle('hidden',!googleLyricsUrl);
+  if(selectedLyricsUrl)updateSavedSongLyrics(selectedLyricsUrl);
+};
+
+document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>{
+  document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('active'));
+  button.classList.add('active');
+  ['map','lyrics','details'].forEach(tab=>$(`${tab}Tab`).classList.toggle('hidden',button.dataset.tab!==tab));
+}));
+
+function initializeKeys(){
+  const options=[];
+  MAJOR_KEY_ROOTS.forEach(root=>options.push({token:root,label:`${prettyKey(root)} Maior`}));
+  MINOR_KEY_ROOTS.forEach(root=>options.push({token:root+'m',label:`${prettyKey(root)} menor`}));
+  $('manualKey').innerHTML=options.map(o=>`<option value="${o.token}">${o.label}</option>`).join('');
+  $('studyKey').innerHTML=options.map(o=>`<option value="${o.token}">${o.label}</option>`).join('');
+  $('manualKey').value='C';
+  $('studyKey').value='G';
+  setMapFromKey('C');
+  renderStudyMap('G');
+}
+$('studyKey').addEventListener('change',event=>renderStudyMap(event.target.value));
+$('manualKey').addEventListener('change',e=>{
+  const key=e.target.value;
+  setMapFromKey(key);
+  syncStudyMap(key);
+  if(!selectedSong)return;
+  $('songKey').textContent=prettyKey(key);
+  $('keySource').textContent=`Tom corrigido manualmente: ${prettyKey(key)}.`;
+  updateSavedSongKey(key,selectedCifraUrl);
+});
+
+const OPEN_CHORD_SHAPES={
+  C:[{name:'Forma aberta',frets:['x',3,2,0,1,0],fingers:[0,3,2,0,1,0]}],
+  Cm:[{name:'Forma compacta',frets:['x',3,5,5,4,3],fingers:[0,1,3,4,2,1]}],
+  D:[{name:'Forma aberta',frets:['x','x',0,2,3,2],fingers:[0,0,0,1,3,2]}],
+  Dm:[{name:'Forma aberta',frets:['x','x',0,2,3,1],fingers:[0,0,0,2,3,1]}],
+  E:[{name:'Forma aberta',frets:[0,2,2,1,0,0],fingers:[0,2,3,1,0,0]}],
+  Em:[{name:'Forma aberta',frets:[0,2,2,0,0,0],fingers:[0,2,3,0,0,0]}],
+  F:[{name:'Forma compacta',frets:['x','x',3,2,1,1],fingers:[0,0,3,2,1,1]}],
+  G:[{name:'Forma aberta',frets:[3,2,0,0,0,3],fingers:[2,1,0,0,0,3]},{name:'Forma aberta alternativa',frets:[3,2,0,0,3,3],fingers:[2,1,0,0,3,4]}],
+  A:[{name:'Forma aberta',frets:['x',0,2,2,2,0],fingers:[0,0,1,2,3,0]}],
+  Am:[{name:'Forma aberta',frets:['x',0,2,2,1,0],fingers:[0,0,2,3,1,0]}],
+  Bdim:[{name:'Forma diminuta',frets:['x',2,3,4,3,'x'],fingers:[0,1,2,4,3,0]}]
+};
+
+function chordParts(chord){
+  const normalized=String(chord||'').trim().replaceAll('♯','#').replaceAll('♭','b');
+  const match=/^([A-G](?:#|b)?)(dim|m)?(?:\/([A-G](?:#|b)?))?$/.exec(normalized);
+  if(!match || !(match[1] in PC) || (match[3] && !(match[3] in PC)))return null;
+  return {root:match[1],quality:match[2]||'M',bass:match[3]||'',label:prettyKey(normalized)};
+}
+
+function chordShapes(chord){
+  const parsed=chordParts(chord);
+  if(!parsed)return [];
+  const suffix=parsed.quality==='M'?'':parsed.quality;
+  const shapes=[...(OPEN_CHORD_SHAPES[parsed.root+suffix]||[])];
+  const pitch=PC[parsed.root];
+  const fifthRoot=(pitch-9+12)%12||12;
+
+  if(parsed.quality==='dim'){
+    shapes.push({name:'Diminuto · raiz na 5ª corda',frets:['x',fifthRoot,fifthRoot+1,fifthRoot+2,fifthRoot+1,'x'],fingers:[0,1,2,4,3,0]});
+    let fourthRoot=(pitch-2+12)%12;
+    if(fourthRoot<3)fourthRoot+=12;
+    shapes.push({name:'Diminuto · raiz na 4ª corda',frets:['x','x',fourthRoot,fourthRoot-2,fourthRoot-3,fourthRoot-2],fingers:[0,0,4,2,1,3]});
+  }else{
+    const sixthRoot=(pitch-4+12)%12||12;
+    const minor=parsed.quality==='m';
+    shapes.push({
+      name:'Pestana · raiz na 6ª corda',
+      frets:minor?[sixthRoot,sixthRoot+2,sixthRoot+2,sixthRoot,sixthRoot,sixthRoot]:[sixthRoot,sixthRoot+2,sixthRoot+2,sixthRoot+1,sixthRoot,sixthRoot],
+      fingers:minor?[1,3,4,1,1,1]:[1,3,4,2,1,1]
+    });
+    shapes.push({
+      name:'Pestana · raiz na 5ª corda',
+      frets:minor?['x',fifthRoot,fifthRoot+2,fifthRoot+2,fifthRoot+1,fifthRoot]:['x',fifthRoot,fifthRoot+2,fifthRoot+2,fifthRoot+2,fifthRoot],
+      fingers:minor?[0,1,3,4,2,1]:[0,1,3,3,3,1]
+    });
+  }
+
+  return shapes.filter((shape,index,all)=>all.findIndex(other=>String(other.frets)===String(shape.frets))===index);
+}
+
+function chordDiagramSvg(shape){
+  const pressed=shape.frets.filter(fret=>typeof fret==='number' && fret>0);
+  const lowest=pressed.length?Math.min(...pressed):1;
+  const highest=pressed.length?Math.max(...pressed):1;
+  const firstFret=highest<=5?1:lowest;
+  const x=index=>28+index*23;
+  const top=37;
+  const gap=26;
+  const lines=[];
+
+  for(let fret=0;fret<=5;fret++){
+    lines.push(`<line x1="28" y1="${top+fret*gap}" x2="143" y2="${top+fret*gap}" stroke="${fret===0 && firstFret===1?'var(--text)':'var(--border)'}" stroke-width="${fret===0 && firstFret===1?5:2}"/>`);
+  }
+  for(let string=0;string<6;string++){
+    lines.push(`<line x1="${x(string)}" y1="${top}" x2="${x(string)}" y2="${top+5*gap}" stroke="var(--muted)" stroke-width="${string<3?2:1.4}"/>`);
+  }
+  if(firstFret>1)lines.push(`<text x="8" y="${top+18}" fill="var(--muted)" font-size="11" text-anchor="middle">${firstFret}ª</text>`);
+
+  shape.frets.forEach((fret,index)=>{
+    if(fret==='x'){
+      lines.push(`<text x="${x(index)}" y="24" fill="var(--muted)" font-size="16" text-anchor="middle">×</text>`);
+    }else if(fret===0){
+      lines.push(`<circle cx="${x(index)}" cy="17" r="5.5" fill="none" stroke="var(--muted)" stroke-width="1.7"/>`);
+    }else{
+      const y=top+(fret-firstFret+0.5)*gap;
+      lines.push(`<circle cx="${x(index)}" cy="${y}" r="9" fill="var(--accent)"/>`);
+      if(shape.fingers[index])lines.push(`<text x="${x(index)}" y="${y+4}" fill="#fff" font-size="10" font-weight="800" text-anchor="middle">${shape.fingers[index]}</text>`);
+    }
+    lines.push(`<text x="${x(index)}" y="185" fill="var(--muted)" font-size="10" text-anchor="middle">${6-index}</text>`);
+  });
+
+  return `<svg class="chordDiagramSvg" viewBox="0 0 165 195" role="img" aria-label="Diagrama: ${escapeHtml(shape.name)}">${lines.join('')}</svg>`;
+}
+
+function chordButton(chord,className=''){
+  const label=escapeHtml(prettyKey(chord));
+  return `<button type="button" class="chordButton${className?' '+className:''}" data-chord="${escapeHtml(chord)}" aria-label="Ver montagem de ${label}">${label}</button>`;
+}
+
+function renderChordSequence(chords,separator=' · '){
+  return chords.map(chord=>chordButton(chord)).join(escapeHtml(separator));
+}
+
+function renderChordText(text){
+  return String(text).split(/(\s*[→↔·]\s*)/).map(part=>{
+    const chord=part.trim();
+    return chordParts(chord)?chordButton(chord,'chordInline'):escapeHtml(part);
+  }).join('');
+}
+
+function renderChordCatalog(chords){
+  $('chordCatalog').innerHTML=chords.map(chord=>{
+    const shapes=chordShapes(chord);
+    if(!shapes.length)return '';
+    return `<button type="button" class="chordCatalogCard" data-chord="${escapeHtml(chord)}" aria-label="Ver formas do acorde ${escapeHtml(prettyKey(chord))}"><strong>${escapeHtml(prettyKey(chord))}</strong>${chordDiagramSvg(shapes[0])}<span class="tiny">${shapes.length} formas disponíveis</span></button>`;
+  }).join('');
+}
+
+function openChordDiagram(chord,index=0){
+  const parsed=chordParts(chord);
+  const shapes=chordShapes(chord);
+  if(!parsed || !shapes.length)return;
+  const safeIndex=Math.max(0,Math.min(shapes.length-1,Number(index)||0));
+  const shape=shapes[safeIndex];
+  $('chordModalTitle').textContent=`Acorde ${parsed.label}`;
+  $('chordVariationTabs').innerHTML=shapes.map((item,itemIndex)=>`<button type="button" class="chordVariationButton${itemIndex===safeIndex?' active':''}" data-chord-variation="${itemIndex}" data-chord-label="${escapeHtml(chord)}">Forma ${itemIndex+1}</button>`).join('');
+  $('chordDiagram').innerHTML=chordDiagramSvg(shape);
+  $('chordPositionHint').textContent=parsed.bass?`${shape.name}. Na cifra, o baixo indicado é ${prettyKey(parsed.bass)}.`:shape.name;
+  $('chordModal').classList.remove('hidden');
+}
+
+function closeChordDiagram(){
+  $('chordModal').classList.add('hidden');
+}
+
+document.addEventListener('click',event=>{
+  const variation=event.target.closest('[data-chord-variation]');
+  if(variation){openChordDiagram(variation.dataset.chordLabel,variation.dataset.chordVariation);return}
+  const button=event.target.closest('[data-chord]');
+  if(button)openChordDiagram(button.dataset.chord);
+});
+$('chordModalClose').addEventListener('click',closeChordDiagram);
+$('chordModal').addEventListener('click',event=>{if(event.target===$('chordModal'))closeChordDiagram()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeChordDiagram()});
+
+function supportedKeyToken(token){
+  const parsed=parseKeyToken(token);
+  if(!parsed || !(parsed.root in PC))return '';
+  const choices=parsed.minor?MINOR_KEY_ROOTS:MAJOR_KEY_ROOTS;
+  const root=choices.find(choice=>choice===parsed.root)||choices.find(choice=>PC[choice]===PC[parsed.root]);
+  return root?root+(parsed.minor?'m':''):'';
+}
+
+function syncStudyMap(token){
+  const supported=supportedKeyToken(token);
+  if(!supported)return;
+  $('studyKey').value=supported;
+  renderStudyMap(supported);
+}
+
+function setMapFromKey(token){
+  const supported=supportedKeyToken(token);
+  const parsed=parseKeyToken(supported||token);
+  if(!parsed)return;
+
+  const {root,minor}=parsed;
+  const scale=buildScale(root,minor);
+  const qualities=minor?['m','dim','M','m','m','M','M']:['M','m','m','M','M','m','dim'];
+  const chords=scale.map((n,i)=>formatChord(n,qualities[i]));
+
+  $('manualKey').value=(minor?root+'m':root);
+  $('harmonicField').innerHTML=renderChordSequence(chords);
+
+  const tonic=chords[0];
+  const sub=chords[3];
+  const dominant=minor?plainMajor(scale[4]):chords[4];
+  const relative=minor?chords[2]:chords[5];
+
+  $('functions').innerHTML=`Tônica: ${chordButton(tonic,'chordInline')}<br>Subdominante: ${chordButton(sub,'chordInline')}<br>Dominante: ${chordButton(dominant,'chordInline')}<br>Relativa: ${chordButton(relative,'chordInline')}`;
+  $('mapExplanation').innerHTML=minor
+    ? `No campo menor natural, o V grau aparece menor. Na prática tonal, é comum elevar o 7º grau e usar ${chordButton(dominant,'chordInline')} como dominante para criar uma resolução mais forte de volta para ${chordButton(tonic,'chordInline')}.`
+    : `Use ${chordButton(tonic,'chordInline')} como repouso, ${chordButton(sub,'chordInline')} como afastamento e ${chordButton(dominant,'chordInline')} como tensão. A relativa ${chordButton(relative,'chordInline')} compartilha as notas da tonalidade e permite variar a cor sem sair do campo.`;
+}
+
+function renderStudyMap(token){
+  const parsed=parseKeyToken(token);
+  if(!parsed)return;
+  const {root,minor}=parsed;
+  const scale=buildScale(root,minor);
+  const qualities=minor?['m','dim','M','m','m','M','M']:['M','m','m','M','M','m','dim'];
+  const chords=scale.map((note,index)=>formatChord(note,qualities[index]));
+  const tonic=chords[0],subdominant=chords[3],naturalDominant=chords[4];
+  const dominant=minor?plainMajor(scale[4]):naturalDominant;
+  const relative=minor?chords[2]:chords[5];
+  $('studyField').innerHTML=renderChordSequence(chords);
+  $('studyFieldExplanation').textContent=minor
+    ?`A relativa maior de ${prettyKey(root)}m é ${prettyKey(relative)}.`
+    :`A relativa menor de ${prettyKey(root)} é ${prettyKey(relative)}.`;
+
+  const progressions=minor
+    ?[[[0,5,2,6],'i · VI · III · VII','Alterna repouso menor e abertura na relativa maior.'],[[0,3,4,0],'i · iv · v · i','Movimento completo dentro da menor natural.'],[[0,3,'V',0],'i · iv · V · i','Dominante maior emprestada da menor harmônica.'],[[5,6,0,0],'VI · VII · i','Chegada à tônica por acordes vizinhos.']]
+    :[[[0,4,5,3],'I · V · vi · IV','Progressão frequente em repertórios populares.'],[[0,5,3,4],'I · vi · IV · V','Variação clássica com tensão no final.'],[[5,3,0,4],'vi · IV · I · V','Começa na relativa menor e retorna ao campo maior.'],[[3,4,0,0],'IV · V · I','Preparação, tensão e resolução na tônica.'],[[0,3,4,0],'I · IV · V · I','Tripé harmônico e retorno ao repouso.']];
+  $('studyProgressions').innerHTML=progressions.map(([indexes,degrees,description],index)=>`<div class="studyProgression"><strong>Progressão ${index+1} · ${degrees}</strong><div class="chords">${renderChordSequence(indexes.map(i=>i==='V'?dominant:chords[i]),' → ')}</div><div class="tiny">${description}</div></div>`).join('');
+
+  const bassBridge=minor?`${tonic} → ${dominant}/${scale[6]} → ${tonic}`:`${tonic} → ${dominant}/${scale[6]} → ${relative}`;
+  const passageRoot=SHARP[(PC[root]+1)%12];
+  const variations=[
+    ['Acordes relativos',`${tonic} ↔ ${relative}`,minor?'Maior e menor relativos compartilham as mesmas notas da escala.':'A relativa menor permite mudar a cor sem abandonar o campo harmônico.'],
+    ['Aproximações pelo baixo',bassBridge,'O baixo cria ligação melódica entre os acordes. Ajuste a inversão à cifra real.'],
+    ['Acordes de passagem',`${tonic} → ${passageRoot}dim → ${chords[1]}`,'Acordes cromáticos podem ligar temporariamente graus vizinhos.'],
+    minor?['Sensível e resolução',`${dominant} → ${tonic}`,'Ao elevar o sétimo grau, o V maior reforça a resolução para i.']:['Função harmônica',`${tonic} → ${subdominant} → ${dominant} → ${tonic}`,'Repouso, afastamento, tensão e retorno definem a condução tonal.']
+  ];
+  $('studyVariations').innerHTML=variations.map(([title,example,description])=>`<div class="studyProgression"><strong>${escapeHtml(title)}</strong><div class="chords">${renderChordText(example)}</div><div class="tiny">${escapeHtml(description)}</div></div>`).join('');
+  renderChordCatalog(chords);
+}
+
+function parseKeyToken(token){
+  const raw=String(token||'').trim().replace('♯','#').replace('♭','b');
+  const match=/^([A-G](?:#|b)?)(m)?$/.exec(raw);
+  if(!match)return null;
+  return {root:match[1],minor:!!match[2]};
+}
+
+function buildScale(root,minor){
+  const rootPc=PC[root];
+  const intervals=minor?[0,2,3,5,7,8,10]:[0,2,4,5,7,9,11];
+  const flat=preferFlats(root,minor);
+  const names=flat?FLAT:SHARP;
+  return intervals.map(i=>names[(rootPc+i)%12]);
+}
+
+function preferFlats(root,minor){
+  if(root.includes('b'))return true;
+  if(root.includes('#'))return false;
+  return minor?['C','D','F','G','Bb','Eb'].includes(root):['F','Bb','Eb','Ab','Db','Gb'].includes(root);
+}
+function formatChord(note,q){return q==='M'?note:q==='m'?note+'m':note+'dim'}
+function plainMajor(note){return note}
+function prettyKey(token){return String(token).replaceAll('#','♯').replaceAll('b','♭')}
+function tempoLabel(bpm){return bpm<70?'lento':bpm<=110?'moderado':'rápido'}
+function formatDuration(seconds){seconds=Number(seconds)||0;return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`}
+
+const PORTUGUESE_NOTES={
+  'C':'Dó','C♯':'Ré♭','D':'Ré','D♯':'Mi♭','E':'Mi','F':'Fá',
+  'F♯':'Sol♭','G':'Sol','G♯':'Lá♭','A':'Lá','A♯':'Si♭','B':'Si'
+};
+const CHROMATIC_NOTES=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+function tunerNoteParts(note){
+  const match=/^([A-G](?:♯)?)(-?\d+)$/.exec(String(note||''));
+  if(!match)return {base:'',octave:'',name:'—',lower:'—',upper:'—'};
+  const index=CHROMATIC_NOTES.indexOf(match[1]);
+  return {
+    base:match[1],octave:match[2],name:PORTUGUESE_NOTES[match[1]]||match[1],
+    lower:PORTUGUESE_NOTES[CHROMATIC_NOTES[(index+11)%12]],
+    upper:PORTUGUESE_NOTES[CHROMATIC_NOTES[(index+1)%12]]
+  };
+}
+window.onTunerUpdate=(freq,cents,note)=>{
+  if(metronomeTimer!==null)return;
+  const parts=tunerNoteParts(note);
+  $('tunerNote').textContent=parts.name;
+  $('tunerPitchLabel').textContent=`${parts.name}${parts.octave} · ${Number(freq).toFixed(1)} Hz`;
+  $('lowerNote').textContent=parts.lower;
+  $('upperNote').textContent=parts.upper;
+  $('tunerFreq').textContent=Number(freq).toFixed(1)+' Hz';
+  const c=Math.max(-50,Math.min(50,Number(cents)));
+  smoothedCents=smoothedCents*0.58+c*0.42;
+  $('needle').style.transform=`translateX(-50%) rotate(${smoothedCents*1.45}deg)`;
+  const inTune=Math.abs(c)<=5;
+  $('tunerCentsBox').textContent=`${c>0?'+':''}${c.toFixed(0)}¢`;
+  $('tunerCents').textContent=inTune?'Afinado ✓':c<0?`${Math.abs(c).toFixed(0)} cents abaixo`:`${c.toFixed(0)} cents acima`;
+  $('tunerReadout').classList.toggle('inTune',inTune);
+  $('noteDisplay').classList.toggle('inTune',inTune);
+};
+window.onTunerError=message=>$('tunerCents').textContent=message;
+window.onTunerPermission=status=>{
+  if(status==='granted'){
+    $('tunerCents').textContent='Ouvindo... Toque uma corda.';
+  }else if(status==='denied'){
+    $('tunerCents').textContent='Autorize o microfone para usar o afinador.';
+  }
+};
+
+function updateMetronomeBpm(value){
+  const bpm=Math.max(40,Math.min(220,Number(value)||80));
+  $('metroRange').value=String(bpm);
+  $('metroBpm').textContent=String(bpm);
+  if(metronomeTimer!==null)startMetronome();
+}
+function playMetronomeBeat(){
+  $('metroBeat').classList.add('active');
+  $('songMetroBtn').classList.add('beating');
+  setTimeout(()=>{$('metroBeat').classList.remove('active');$('songMetroBtn').classList.remove('beating')},90);
+  try{
+    const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+    if(!AudioContextClass)return;
+    if(!metronomeAudio)metronomeAudio=new AudioContextClass();
+    if(metronomeAudio.state==='suspended')metronomeAudio.resume();
+    const oscillator=metronomeAudio.createOscillator();
+    const gain=metronomeAudio.createGain();
+    oscillator.frequency.value=1050;
+    gain.gain.setValueAtTime(0.20,metronomeAudio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,metronomeAudio.currentTime+0.06);
+    oscillator.connect(gain);gain.connect(metronomeAudio.destination);
+    oscillator.start();oscillator.stop(metronomeAudio.currentTime+0.07);
+  }catch{}
+}
+function startMetronome(){
+  if(window.Android?.stopTuner)Android.stopTuner();
+  $('tunerCents').textContent='Afinador pausado enquanto o metrônomo está ativo.';
+  $('tunerNote').textContent='—';
+  $('tunerFreq').textContent='0.0 Hz';
+  $('tunerPitchLabel').textContent='A4 = 440 Hz';
+  $('tunerCentsBox').textContent='0¢';
+  $('lowerNote').textContent='—';
+  $('upperNote').textContent='—';
+  $('tunerReadout').classList.remove('inTune');
+  $('noteDisplay').classList.remove('inTune');
+  $('needle').style.transform='translateX(-50%) rotate(0deg)';
+  smoothedCents=0;
+  if(metronomeTimer!==null)clearInterval(metronomeTimer);
+  playMetronomeBeat();
+  metronomeTimer=setInterval(playMetronomeBeat,60000/(Number($('metroRange').value)||80));
+  $('metroPlay').textContent='▶ Tocando';
+  $('songMetroBtn').classList.add('active');
+  $('songMetroBtn').setAttribute('aria-pressed','true');
+  $('songMetroState').textContent='⏸';
+}
+function stopMetronome(resumeTuner=true){
+  const wasRunning=metronomeTimer!==null;
+  if(metronomeTimer!==null)clearInterval(metronomeTimer);
+  metronomeTimer=null;
+  $('metroBeat')?.classList.remove('active');
+  if($('metroPlay'))$('metroPlay').textContent='▶ Play';
+  $('songMetroBtn')?.classList.remove('active','beating');
+  $('songMetroBtn')?.setAttribute('aria-pressed','false');
+  if($('songMetroState'))$('songMetroState').textContent='▶';
+  if(wasRunning && resumeTuner && !$('tunerPage').classList.contains('hidden')){
+    $('tunerCents').textContent='Reiniciando afinador...';
+    if(window.Android?.prepareTuner)Android.prepareTuner();
+  }
+}
+$('metroRange').addEventListener('input',event=>updateMetronomeBpm(event.target.value));
+$('metroMinus').addEventListener('click',()=>updateMetronomeBpm(Number($('metroRange').value)-5));
+$('metroPlus').addEventListener('click',()=>updateMetronomeBpm(Number($('metroRange').value)+5));
+$('metroPlay').addEventListener('click',startMetronome);
+$('metroPause').addEventListener('click',stopMetronome);
+$('songMetroBtn').addEventListener('click',()=>{
+  if(metronomeTimer!==null){stopMetronome(false);return}
+  const bpm=Number($('songMetroBtn').dataset.bpm);
+  if(!bpm)return;
+  updateMetronomeBpm(bpm);
+  startMetronome();
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMetronome(false)});
+
+function currentProfile(){
+  return localStorage.getItem('profileEmail')||'convidado';
+}
+function repertoireKey(){
+  return 'repertoire:'+currentProfile().toLowerCase();
+}
+function saveSong(item){
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const index=list.findIndex(x=>String(x.id)===String(item.id));
+  if(index<0){
+    list.unshift({...item,savedAt:Date.now(),key:'',favorite:false});
+  }else{
+    const current=list.splice(index,1)[0];
+    list.unshift({...current,...item,savedAt:Date.now()});
+  }
+  localStorage.setItem(repertoireKey(),JSON.stringify(list.slice(0,50)));
+  renderRepertoire();
+}
+function updateSavedSongKey(key,url){
+  if(!selectedSong)return;
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const item=list.find(x=>String(x.id)===String(selectedSong.id));
+  if(item){item.key=key;item.cifraUrl=url||'';localStorage.setItem(repertoireKey(),JSON.stringify(list))}
+  renderRepertoire();
+}
+function updateSavedSongDetails(details){
+  if(!selectedSong)return;
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const item=list.find(x=>String(x.id)===String(selectedSong.id));
+  if(!item)return;
+  item.album=details.album||item.album||'';
+  item.duration=Number(details.duration)||0;
+  item.bpm=Number(details.bpm)||0;
+  localStorage.setItem(repertoireKey(),JSON.stringify(list));
+  renderRepertoire();
+}
+function updateSavedSongLyrics(url){
+  if(!selectedSong || !url)return;
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const item=list.find(song=>String(song.id)===String(selectedSong.id));
+  if(!item)return;
+  item.lyricsUrl=url;
+  localStorage.setItem(repertoireKey(),JSON.stringify(list));
+}
+function toggleFavorite(songId){
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const item=list.find(x=>String(x.id)===String(songId));
+  if(!item)return;
+  item.favorite=!item.favorite;
+  item.favoriteAt=item.favorite?Date.now():0;
+  localStorage.setItem(repertoireKey(),JSON.stringify(list));
+  renderRepertoire();
+  updateFavoriteButton();
+}
+function updateFavoriteButton(){
+  if(!selectedSong)return;
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const item=list.find(x=>String(x.id)===String(selectedSong.id));
+  const favorite=!!item?.favorite;
+  $('favoriteBtn').textContent=favorite?'♥ Remover dos favoritos':'♡ Adicionar aos favoritos';
+  $('favoriteBtn').classList.toggle('active',favorite);
+  $('favoriteBtn').setAttribute('aria-pressed',String(favorite));
+}
+function renderSavedSongs(list,emptyText){
+  if(!list.length)return `<div class="muted">${escapeHtml(emptyText)}</div>`;
+  return list.map(song=>{
+    const key=song.key?'Tom: '+escapeHtml(prettyKey(song.key)):'Tom ainda não salvo';
+    const bpm=Number(song.bpm)>0?` · ${Math.round(Number(song.bpm))} BPM`:'';
+    const favorite=!!song.favorite;
+    return `<div class="result savedItem"><div class="savedContent"><strong>${escapeHtml(song.title)}</strong><div class="artist">${escapeHtml(song.artist)}</div><div class="tiny">${key}${bpm}</div></div><button class="favoriteToggle${favorite?' active':''}" type="button" data-favorite-id="${escapeHtml(song.id)}" aria-label="${favorite?'Remover dos favoritos':'Adicionar aos favoritos'}">${favorite?'♥':'♡'}</button></div>`;
+  }).join('');
+}
+function renderRepertoire(){
+  const list=JSON.parse(localStorage.getItem(repertoireKey())||'[]');
+  const favorites=list.filter(song=>song.favorite).sort((a,b)=>(b.favoriteAt||0)-(a.favoriteAt||0));
+  $('profileLabel').textContent=currentProfile()==='convidado'?'Perfil: convidado neste aparelho':`Perfil: ${currentProfile()}`;
+  $('favoriteCount').textContent=String(favorites.length);
+  $('historyCount').textContent=String(list.length);
+  $('favoriteSongs').innerHTML=renderSavedSongs(favorites,'Você ainda não adicionou músicas aos favoritos.');
+  $('savedSongs').innerHTML=renderSavedSongs(list,'Nenhuma música salva ainda.');
+}
+$('favoriteBtn').addEventListener('click',()=>{
+  if(selectedSong)toggleFavorite(selectedSong.id);
+});
+$('repertoirePage').addEventListener('click',event=>{
+  const button=event.target.closest('[data-favorite-id]');
+  if(button)toggleFavorite(button.dataset.favoriteId);
+});
+
+$('emailLogin').addEventListener('click',()=>{
+  const email=$('emailInput').value.trim().toLowerCase();
+  $('loginStatus').classList.remove('hidden');
+
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    $('loginStatus').textContent='Digite um e-mail válido.';
+    return;
+  }
+
+  localStorage.setItem('profileEmail',email);
+  $('loginStatus').textContent=`Perfil ativo neste aparelho: ${email}`;
+  $('logoutBtn').classList.remove('hidden');
+  renderRepertoire();
+  updateFavoriteButton();
+});
+
+$('logoutBtn').addEventListener('click',()=>{
+  localStorage.removeItem('profileEmail');
+  $('emailInput').value='';
+  $('loginStatus').textContent='Perfil local encerrado.';
+  $('logoutBtn').classList.add('hidden');
+  renderRepertoire();
+  updateFavoriteButton();
+});
+
+const savedEmail=localStorage.getItem('profileEmail');
+if(savedEmail){
+  $('emailInput').value=savedEmail;
+  $('logoutBtn').classList.remove('hidden');
+}
+
+function escapeHtml(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+initializeKeys();
+renderRepertoire();
+</script>
+</body>
+</html>
